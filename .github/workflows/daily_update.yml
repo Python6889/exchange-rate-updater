@@ -1,4 +1,4 @@
-name: 沪港通汇率每日更新
+name: 沪港通结算汇率每日更新
 
 on:
   schedule:
@@ -43,12 +43,15 @@ jobs:
         TABLE_TOKEN: ${{ secrets.TABLE_TOKEN }}
         SHEET_ID: ${{ secrets.SHEET_ID }}
       run: |
-        echo "开始运行汇率更新程序..."
+        echo "开始运行沪港通结算汇率更新程序..."
+        echo "当前时间：$(date)"
+        echo "=============================="
         python exchange_rate_update.py
         
-    # 第五步：记录运行时间
+    # 第五步：记录运行结果
     - name: 记录完成时间
       if: always()
       run: |
+        echo "=============================="
         echo "任务执行完成时间：$(date)"
         echo "GitHub Actions运行完成"
